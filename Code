@@ -1,0 +1,60 @@
+def quad(m,n,mc,nc,l):
+    a = ((nc) - (l - 1) // 2) + 1
+    b = ((nc) + (l - 1) // 2) + 1
+
+    if m >= 0:
+        ###
+        quad(m-1,n,mc,nc,l)
+        ###
+        if m in range((mc-(l-1)//2),(mc+(l-1)//2+1)) and m in range(len(matriz)):
+            for i in range(a-1,b):
+                if i >= 0 and i in range(n):
+                  matriz[m][i] = 'x '
+
+    if m == 0:
+        return
+
+
+
+def circ(m,n,mc,nc,r):
+    if m >= 0:
+        ###
+        circ(m-1,n,mc,nc,r)
+        ###
+        for i in range(n):
+            if ((m - mc) ** 2 + (i - nc) ** 2) ** (1 / 2) <= r and m in range(len(matriz)):
+               matriz[m][i] = 'x '
+    if m == 0:
+        return
+
+
+
+ordem = input().split()
+m = int(ordem[0])
+n = int(ordem[1])
+#criar matriz mxn:
+matriz = []
+for i in range(m):
+    c = []
+    for j in range(n):
+        c.append('- ')
+    matriz.append(c)
+#
+q = int(input())
+for j in range(q):
+    y = input().split()
+    #print(y)
+
+    mc = int(y[1])
+    nc = int(y[2])
+    if 'circulo' in y:
+        r = int(y[3])
+        circ(m,n,mc,nc,r)
+    if 'quadrado' in y:
+        l = int(y[3])
+        quad(m,n,mc,nc,l)
+
+for i in range(m):
+    for j in range(n):
+        print(matriz[i][j],end='')
+    print()
